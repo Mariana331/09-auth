@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/store/authStore';
 
-export const EditProfile = () => {
+export default function EditProfile() {
   const router = useRouter();
   const [username, setUserName] = useState('');
   const user = useAuthStore((state) => state.user);
@@ -71,6 +71,4 @@ export const EditProfile = () => {
       </div>
     </main>
   );
-};
-
-export default EditProfile;
+}
