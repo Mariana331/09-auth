@@ -10,6 +10,7 @@ export default function EditProfile() {
   const router = useRouter();
   const [username, setUserName] = useState('');
   const user = useAuthStore((state) => state.user);
+  const setUser = useAuthStore((state) => state.setUser);
 
   useEffect(() => {
     getMe().then((user) => {
@@ -26,7 +27,8 @@ export default function EditProfile() {
 
   const handleSaveUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await updateMe({ username });
+    const editedUser = await updateMe({ username });
+    setUser(editedUser);
     router.push('/profile');
   };
   return (
@@ -44,10 +46,11 @@ export default function EditProfile() {
 
         <form className={css.profileInfo} onSubmit={handleSaveUser}>
           <div className={css.usernameWrapper}>
-            <label htmlFor="username">Username:{}</label>
+            <label htmlFor="username">Username:</label>
             <input
               id="username"
               type="text"
+              value={username}
               className={css.input}
               onChange={handleChange}
             />
